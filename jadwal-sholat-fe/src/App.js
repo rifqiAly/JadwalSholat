@@ -267,7 +267,7 @@ function App() {
                 }}>
                 <Grid sx={{
                 marginTop: '3vh',
-                fontSize: '0.65vw',
+                fontSize: randomAyat.arab?.length > 1500 ? '0.65vw' : '0.8vw',
                 textAlign: 'center',
                 fontWeigh: 700,
                 color: "#FFB703",
@@ -279,7 +279,7 @@ function App() {
                 </Grid>
                 <Grid sx={{
                 marginTop: '3vh',
-                fontSize: '0.65vw',
+                fontSize: randomAyat.id?.length > 1500 ? '0.65vw' : '0.8vw',
                 textAlign: 'center',
                 fontWeigh: 400,
                 color: "#FFB703",
