@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { Grid, Box } from "@mui/material";
+import { Grid, Box, Card, CardMedia } from "@mui/material";
+
 import moment from 'moment';
 import './App.css';
 
 import logoMasjid from './assets/Group 11.png'
 import bgMasjid from './assets/image 1.png'
+import logoFPS from './assets/Logo New FPS v1 2.png'
 
 
 import master from "./helper/master"
-import { borderRadius, fontFamily, fontStyle } from "@mui/system";
+
+
 
 function App() {
   const [listSholat,setListSholat] = useState('')
@@ -63,113 +66,342 @@ function App() {
   }, [refreshFlag]);
 
   
-
-
+  
+  
   return (
-    <Grid>
-      <Box sx={{
-        width: '100vw',
-        height: '15vh',
-        paddingx: '1vw', 
-        paddingY: '1vh',
-        backgroundColor: '#1E1E1E',
-        // '&:hover': {
-        //   backgroundColor: 'primary.main',
-        //   opacity: [0.9, 0.8, 0.7],
-        // },
-      }}>
-        <Grid container direction="row"
-          justifyContent="space-evenly"
-          alignItems="center">
-          <Grid item sx={{paddingLeft: '1vw', paddingX: '5vh'}}>
-            <img src={logoMasjid}/>
-          </Grid>
-          <Box item sx={{
-            width: '30vw',
-            height: '10vh',
-            backgroundColor: '#006783',
-            paddingRight: '1vw', 
-            paddingBottom: '5vh',
-            borderRadius: '12px',
+    <Box>
+      <CardMedia
+          component="img"
+          sx={{ 
+            maxHeight: '100vh',
+            position: "absolute",
+            top: 0,
+            right: 0,
+            height: "100%",
+            width: "100%"
+          }}
+          image={bgMasjid}
+        />
+        <Grid container direction="column"
+        justifyContent="space-between"
+        alignItems="stre">
+          <Grid item> 
+            <Box  sx={{
+            width: '100vw',
+            height: '15vh',
+            paddingx: '1vw', 
+            paddingY: '1vh',
+            backgroundColor: '#1E1E1E',
+            opacity: '80%'
             // '&:hover': {
             //   backgroundColor: 'primary.main',
             //   opacity: [0.9, 0.8, 0.7],
             // },
-          }}>
+            }}>
             <Grid container direction="row"
-              justifyContent="space-around"
+              justifyContent="space-between"
               alignItems="center">
-              <Grid item sx={{padding: '1vw'}}>
-                <Grid sx={{
-                fontSize: '24px',
-                fontWeigh: 700,
-                color: "#FFFFFF",
-                // fontFamily: 'Inter',
-                fontStyle: 'Mixed'
+              <Grid item sx={{paddingLeft: '1vw', paddingX: '5vh'}}>
+                <img src={logoMasjid}/>
+              </Grid>
+              <Box item sx={{
+                width: '35vw',
+                height: '15vh',
+                backgroundColor: '#006783',
+                borderRadius: '12px',
+                // '&:hover': {
+                //   backgroundColor: 'primary.main',
+                //   opacity: [0.9, 0.8, 0.7],
+                // },
               }}>
-                  {tanggalHijriyah.hari}
-                </Grid>
-                <Grid sx={{
-                fontSize: '24px',
-                fontWeigh: 400,
-                color: "#FFFFFF",
-                // fontFamily: 'Inter',
-                fontStyle: 'Mixed'
-              }}>
-                  {tanggalHijriyah.tanggal_masehi} {tanggalHijriyah.bulan_masehi} {tanggalHijriyah.tahun_masehi} 
-                </Grid>
-                <Box sx={{
-                  backgroundColor:'#FFFFFF',
-                  height: '2px'
-                }}/>
+                <Grid container direction="row"
+                  justifyContent="space-around"
+                  alignItems="center">
+                  <Grid item sx={{padding: '1vw'}}>
+                    <Grid sx={{
+                    fontSize: '24px',
+                    fontWeigh: 700,
+                    color: "#FFFFFF",
+                    // fontFamily: 'Inter',
+                    fontStyle: 'Mixed'
+                  }}>
+                      {tanggalHijriyah.hari}
+                    </Grid>
+                    <Grid sx={{
+                    fontSize: '24px',
+                    fontWeigh: 400,
+                    color: "#FFFFFF",
+                    // fontFamily: 'Inter',
+                    fontStyle: 'Mixed'
+                  }}>
+                      {tanggalHijriyah.tanggal_masehi} {tanggalHijriyah.bulan_masehi} {tanggalHijriyah.tahun_masehi} 
+                    </Grid>
+                    <Box sx={{
+                      backgroundColor:'#FFFFFF',
+                      height: '2px'
+                    }}/>
 
+                    <Grid sx={{
+                    fontSize: '24px',
+                    fontWeigh: 400,
+                    color: "#FFFFFF",
+                    // fontFamily: 'Inter',
+                    fontStyle: 'Regular'
+                  }}>
+                      {tanggalHijriyah.tanggal_hijriyah} {tanggalHijriyah.bulan_hijriyah} {tanggalHijriyah.tahun_hijriyah} 
+                    </Grid>
+                  </Grid>
+                  <Grid item sx={{
+                    fontSize: '72px',
+                    fontWeigh: 700,
+                    color: "#FFFFFF",
+                    // fontFamily: 'Inter',
+                    fontStyle: 'Bold'
+                  }}>
+                    {moment(date).format('h:mm:ss')}
+                  </Grid>
+                </Grid>
+              </Box>
+            </Grid>
+            </Box>
+          </Grid>
+          <Grid item sx={{height: '54vh'}} container direction="row"
+          justifyContent="center"
+          alignItems="center">
+              <Box sx={{
+                width: '50vw',
+                height: '50vh',
+                paddingX: '1vw',
+                paddingy: '1vh',
+                backgroundColor: '#1E1E1E',
+                opacity: '75%',
+                borderRadius: 12,
+              }}>
                 <Grid sx={{
+                marginTop: '3vh',
+                fontSize: '24px',
+                fontWeigh: 700,
+                color: "#FFB703",
+                // fontFamily: 'Inter',
+                fontStyle: 'Regular',
+                opacity:'100'
+                }}>
+                حَدَّثَنَا عَبْدُ الْمُتَعَالِ بْنُ طَالِبٍ حَدَّثَنَا ابْنُ وَهْبٍ قَالَ أَخْبَرَنِي عَمْرُو بْنُ الْحَارِثِ أَنَّ قَتَادَةَ حَدَّثَهُ أَنَّ أَنَسَ بْنَ مَالِكٍ رَضِيَ اللَّهُ عَنْهُ حَدَّثَهُعَنْ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ أَنَّهُ صَلَّى الظُّهْرَ وَالْعَصْرَ وَالْمَغْرِبَ وَالْعِشَاءَ وَرَقَدَ رَقْدَةً بِالْمُحَصَّبِ ثُمَّ رَكِبَ إِلَى الْبَيْتِ فَطَافَ بِهِ
+                </Grid>
+                <Grid sx={{
+                marginTop: '3vh',
                 fontSize: '24px',
                 fontWeigh: 400,
-                color: "#FFFFFF",
+                color: "#FFB703",
                 // fontFamily: 'Inter',
-                fontStyle: 'Regular'
-              }}>
-                  {tanggalHijriyah.tanggal_hijriyah} {tanggalHijriyah.bulan_hijriyah} {tanggalHijriyah.tahun_hijriyah} 
+                fontStyle: 'Regular'}}>
+                “Telah menceritakan kepada kami ['Abdul Muta'al bin Tholib] telah menceritakan kepada kami [Ibnu Wahb] berkata, telah mengabarkan kepada saya ['Amru bin Al Harits] bahwa [Qatadah] menceritakan kepadanya bahwa [Anas bin Malik radliallahu 'anhu] menceritakan kepadanya bahwa Nabi shallallahu 'alaihi wasallam melaksanakan shalat Zhuhur, 'Ashar, Maghrib dan 'Isya' kemudian Beliau tidur sejenak di Al Muhashib (tempat melempar jumrah di Mina), lalu Beliau menunggang tunggangannya menuju ke Ka'bah Baitullah lalu thawaf disana”
                 </Grid>
+              </Box>
+          </Grid>
+          <Grid item>
+            <Box sx={{
+              width: '100vw',
+              height: '25vh',
+              // paddingx: '1vw', 
+              paddingY: '2vh',
+              backgroundColor: '#1E1E1E',
+              opacity: '80%'
+              // '&:hover': {
+              //   backgroundColor: 'primary.main',
+              //   opacity: [0.9, 0.8, 0.7],
+              // },
+            }}>
+              <Grid container direction="row"
+              justifyContent="space-between"
+              alignItems="center">
+                <Grid item>
+                  <img src={logoFPS}/>
+                </Grid>
+                <Grid item sx={{
+                fontSize: '32px',
+                fontWeigh: 700,
+                color: "#FFB703",
+                // fontFamily: 'Inter',
+                fontStyle: 'Bold'}}>
+                -- 30 Menit menjelang adzan dzuhur --
+                </Grid>
+                
               </Grid>
-              <Grid item sx={{
-                fontSize: '72px',
+              <Grid container direction="row"
+                  justifyContent="space-evenly"
+                  alignItems="center" sx={{color: "#FFFFFF",}}>
+                <Box item sx={{
+                  width: 'auto',
+                  height: 'auto',
+                  paddingX: '2vw',
+                  paddingY: '2vh',
+                  backgroundColor: '#006783',
+                  borderRadius: '12px',}}>  
+                  <Grid sx={{
+                      textAlign: 'center',
+                      fontSize: '32px',
+                      fontWeigh: 700,
+                      color: "#FFFFFF",
+                      // fontFamily: 'Inter',
+                      fontStyle: 'Bold'}}>
+                    Subuh
+                  </Grid>
+                  <Grid sx={{
+                      textAlign: 'center',
+                      fontSize: '48px',
+                      fontWeigh: 700,
+                      color: "#FFFFFF",
+                      // fontFamily: 'Inter',
+                      fontStyle: 'Bold'}}>
+                    {listSholat.subuh}
+                  </Grid>
+                </Box>
+                <Box item sx={{
+                  width: 'auto',
+                  height: 'auto',
+                  paddingX: '2vw',
+                  paddingY: '2vh',
+                  backgroundColor: '#006783',
+                  borderRadius: '12px',}}>  
+                  <Grid sx={{
+                      textAlign: 'center',
+                      fontSize: '32px',
+                      fontWeigh: 700,
+                      color: "#FFFFFF",
+                      // fontFamily: 'Inter',
+                      fontStyle: 'Bold'}}>
+                    Syuruq
+                  </Grid>
+                  <Grid sx={{
+                      textAlign: 'center',
+                      fontSize: '48px',
+                      fontWeigh: 700,
+                      color: "#FFFFFF",
+                      // fontFamily: 'Inter',
+                      fontStyle: 'Bold'}}>
+                    {listSholat.terbit}
+                  </Grid>
+                </Box>
+                <Box item sx={{
+                  width: 'auto',
+                  height: 'auto',
+                  paddingX: '2vw',
+                  paddingY: '2vh',
+                  backgroundColor: '#006783',
+                  borderRadius: '12px',}}>  
+                  <Grid sx={{
+                      textAlign: 'center',
+                      fontSize: '32px',
+                      fontWeigh: 700,
+                      color: "#FFFFFF",
+                      // fontFamily: 'Inter',
+                      fontStyle: 'Bold'}}>
+                    Dzuhur
+                  </Grid>
+                  <Grid sx={{
+                      textAlign: 'center',
+                      fontSize: '48px',
+                      fontWeigh: 700,
+                      color: "#FFFFFF",
+                      // fontFamily: 'Inter',
+                      fontStyle: 'Bold'}}>
+                    {listSholat.dzuhur}
+                  </Grid>
+                </Box>
+                <Box item sx={{
+                  width: 'auto',
+                  height: 'auto',
+                  paddingX: '2vw',
+                  paddingY: '2vh',
+                  backgroundColor: '#006783',
+                  borderRadius: '12px',}}>  
+                  <Grid sx={{
+                      textAlign: 'center',
+                      fontSize: '32px',
+                      fontWeigh: 700,
+                      color: "#FFFFFF",
+                      // fontFamily: 'Inter',
+                      fontStyle: 'Bold'}}>
+                    Ashar
+                  </Grid>
+                  <Grid sx={{
+                      textAlign: 'center',
+                      fontSize: '48px',
+                      fontWeigh: 700,
+                      color: "#FFFFFF",
+                      // fontFamily: 'Inter',
+                      fontStyle: 'Bold'}}>
+                    {listSholat.ashar}
+                  </Grid>
+                </Box>
+                <Box item sx={{
+                  width: 'auto',
+                  height: 'auto',
+                  paddingX: '2vw',
+                  paddingY: '2vh',
+                  backgroundColor: '#006783',
+                  borderRadius: '12px',}}>  
+                  <Grid sx={{
+                      textAlign: 'center',
+                      fontSize: '32px',
+                      fontWeigh: 700,
+                      color: "#FFFFFF",
+                      // fontFamily: 'Inter',
+                      fontStyle: 'Bold'}}>
+                    Maghrib
+                  </Grid>
+                  <Grid sx={{
+                      textAlign: 'center',
+                      fontSize: '48px',
+                      fontWeigh: 700,
+                      color: "#FFFFFF",
+                      // fontFamily: 'Inter',
+                      fontStyle: 'Bold'}}>
+                    {listSholat.maghrib}
+                  </Grid>
+                </Box>
+                <Box item sx={{
+                  width: 'auto',
+                  height: 'auto',
+                  paddingX: '2vw',
+                  paddingY: '2vh',
+                  backgroundColor: '#006783',
+                  borderRadius: '12px',}}>  
+                  <Grid sx={{
+                      textAlign: 'center',
+                      fontSize: '32px',
+                      fontWeigh: 700,
+                      color: "#FFFFFF",
+                      // fontFamily: 'Inter',
+                      fontStyle: 'Bold'}}>
+                    Isya
+                  </Grid>
+                  <Grid sx={{
+                      textAlign: 'center',
+                      fontSize: '48px',
+                      fontWeigh: 700,
+                      color: "#FFFFFF",
+                      // fontFamily: 'Inter',
+                      fontStyle: 'Bold'}}>
+                    {listSholat.isya}
+                  </Grid>
+                </Box>
+              </Grid>
+              <Grid sx={{
+                textAlign: 'center',
+                fontSize: '24px',
                 fontWeigh: 700,
                 color: "#FFFFFF",
                 // fontFamily: 'Inter',
-                fontStyle: 'Bold'
-              }}>
-                {moment(date).format('h:mm:ss')}
+                fontStyle: 'Bold'}}>
+                  www.jws.4netps.co.id/almuhajirin
               </Grid>
-            </Grid>
-          </Box>
+            </Box>
+          </Grid>
         </Grid>
-      </Box>
-      <Grid sx={{maxWidth: '100vw',
-        maxHeight: '20vh',}}>
-        <img src={bgMasjid} />
-      </Grid>
-      <Grid>
-        Subuh: {listSholat.subuh}
-      </Grid>
-      <Grid>
-        Syuruq: {listSholat.terbit}
-      </Grid>
-      <Grid>
-        Dzuhur: {listSholat.dzuhur}
-      </Grid>
-      <Grid>
-        Ashar: {listSholat.ashar}
-      </Grid>
-      <Grid>
-        Magrib: {listSholat.magrib}
-      </Grid>
-      <Grid>
-        Isya: {listSholat.isya}
-      </Grid>
       
-    </Grid>
+    </Box>
   );
 }
 
