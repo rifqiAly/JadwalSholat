@@ -10,9 +10,15 @@ function App() {
   const [listSholat,setListSholat] = useState('')
   const [tanggalHijriyah,setTanggalHijriyah] = useState('')
   const [date, setDate] = useState(new Date());
+  const [refreshFlag, setRefreshFlag] = useState(false)
 
   const refreshClock = () => {
     setDate(new Date());
+    checkFlag()
+  }
+
+  const checkFlag = () => {
+    moment().format('h:mm:ss') == '12:00:00' ? setRefreshFlag(true) : setRefreshFlag(false)
   }
 
   const getListSholat = async () => {
@@ -41,19 +47,25 @@ function App() {
   }
 
   useEffect(() => {
-    getListSholat();
-    convertCurrentDate()
     const timerId = setInterval(refreshClock, 1000);
     return function cleanup() {
       clearInterval(timerId);
     };
   }, []);
 
+  useEffect(() => {
+    getListSholat();
+    convertCurrentDate()
+  }, [refreshFlag]);
+
   
 
 
   return (
     <Grid>
+      <Grid>
+
+      </Grid>
       <Grid>
         {moment(date).format('h:mm:ss')}
       </Grid>
