@@ -11,12 +11,13 @@ import logoFPS from './assets/Logo New FPS v1 2.png'
 
 import master from "./helper/master"
 
-
+let listAdzan = {}
 
 function App() {
   const [listSholat,setListSholat] = useState('')
   const [tanggalHijriyah,setTanggalHijriyah] = useState('')
   const [randomAyat,setRandomAyat] = useState('')
+  const arr = ['subuh', 'terbit', 'dzuhur', 'ashar', 'maghrib', 'isya']
 
   const [date, setDate] = useState(new Date());
   const [refreshFlag, setRefreshFlag] = useState(false)
@@ -25,7 +26,16 @@ function App() {
     setDate(new Date());
     checkFlag()
     checkHadith()
+    checkAdzan()
   }
+
+  const checkAdzan = () => {
+    if(moment().format('ss') == '00'){
+      getListSholat()
+      console.log(listAdzan)
+    }
+  }
+
 
   const checkHadith = () => {
     if(moment().format('ss') == '00'){
@@ -65,8 +75,18 @@ function App() {
     try {
       const response = await master.ListJadwalSholat(moment().format('YYYY-MM-DD'))
       if(response.data.status == 'ok'){
+        const data = response.data.jadwal.data
         setListSholat(response.data.jadwal.data)
+
+        arr.forEach(prayTime => {
+          const today = moment().format('MM/DD/YYYY')
+          let adzanTime = `${today} ${data[prayTime]}`
+          listAdzan[prayTime] = Math.round((new Date - new Date(adzanTime))/60000)
+          // console.log(`${prayTime} : ${Math.round((new Date - new Date(adzanTime))/60000)}`) //dibagi 60k mili second
+        });
+
         // console.log(response.data.jadwal.data)
+
       }
     } catch (error) {
       console.log(error)
@@ -191,7 +211,7 @@ function App() {
                     // fontFamily: 'Inter',
                     fontStyle: 'Bold'
                   }}>
-                    {moment(date).format('h:mm:ss')}
+                    {moment(date).format('HH:mm:ss')}
                   </Grid>
                 </Grid>
               </Box>
@@ -267,7 +287,25 @@ function App() {
                 color: "#FFB703",
                 // fontFamily: 'Inter',
                 fontStyle: 'Bold'}}>
-                -- 30 Menit menjelang adzan dzuhur --
+                { listAdzan.isya < 0 && listAdzan.maghrib > 0 && listAdzan.isya > -30?
+                `-- ${listAdzan.isya} Menit menjelang Isya --`
+                  :
+                  listAdzan.maghrib < 0 && listAdzan.ashar > 0 && listAdzan.maghrib > -30?
+                  `-- ${listAdzan.maghrib} Menit menjelang Maghrib --`
+                  :
+                  listAdzan.ashar < 0 && listAdzan.dzuhur > 0 && listAdzan.ashar > -30?
+                  `-- ${listAdzan.ashar} Menit menjelang Ashar --`
+                  :
+                  listAdzan.dzuhur < 0 && listAdzan.terbit > 0 && listAdzan.dzuhur > -30?
+                  `-- ${listAdzan.dzuhur} Menit menjelang Dzuhur --`
+                  :
+                  listAdzan.terbit < 0 && listAdzan.subuh > 0 && listAdzan.terbit > -30?
+                  `-- ${listAdzan.terbit} Menit menjelang Syuruq --`
+                  :
+                  listAdzan.subuh < 0 && listAdzan.isya > 0 && listAdzan.subuh > -30?
+                  `-- ${listAdzan.subuh} Menit menjelang Subuh --`
+                  : ``
+                }
                 </Grid>
                 
               </Grid>
