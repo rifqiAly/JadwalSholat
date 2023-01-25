@@ -4,37 +4,88 @@ import { Grid, Box, Card, CardMedia } from "@mui/material";
 import moment from 'moment';
 import './App.css';
 
-import logoMasjid from './assets/Group 11.png'
+import logoMasjid from './assets/Group.png'
 import bgMasjid from './assets/image 1.png'
 import logoFPS from './assets/Logo New FPS v1 2.png'
 
 
 import master from "./helper/master"
 
-
+let listAdzan = {}
 
 function App() {
   const [listSholat,setListSholat] = useState('')
   const [tanggalHijriyah,setTanggalHijriyah] = useState('')
+  const [randomAyat,setRandomAyat] = useState('')
+  const arr = ['subuh', 'terbit', 'dzuhur', 'ashar', 'maghrib', 'isya']
+
   const [date, setDate] = useState(new Date());
   const [refreshFlag, setRefreshFlag] = useState(false)
 
   const refreshClock = () => {
     setDate(new Date());
     checkFlag()
+    checkHadith()
+    checkAdzan()
+  }
+
+  const checkAdzan = () => {
+    if(moment().format('ss') == '00'){
+      getListSholat()
+    }
+  }
+
+
+  const checkHadith = () => {
+    if(moment().format('ss') == '00'){
+      getRandomAyat()
+    }
   }
 
   const checkFlag = () => {
     moment().format('hh:mm:ss') == '00:00:00' ? setRefreshFlag(true) : setRefreshFlag(false)
   }
 
+  const getRandomAyat = async () => {
+    
+    try {
+      const response = await master.randomSource()
+      if(response.status == 200){
+        // setRandomAyat(response.data)
+        let index = Math.round(Math.random()*response.data.length)
+        
+        let slug = response.data[index].slug
+        let total = response.data[index].total
+        
+        let ranNum = Math.round(Math.random()*total)
+
+        const res = await master.randomHadits(slug,ranNum)
+        if(res.status == 200){
+          setRandomAyat(res.data)
+        }
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  } 
+
   const getListSholat = async () => {
     
     try {
       const response = await master.ListJadwalSholat(moment().format('YYYY-MM-DD'))
       if(response.data.status == 'ok'){
+        const data = response.data.jadwal.data
         setListSholat(response.data.jadwal.data)
+
+        arr.forEach(prayTime => {
+          const today = moment().format('MM/DD/YYYY')
+          let adzanTime = `${today} ${data[prayTime]}`
+          listAdzan[prayTime] = Math.round((new Date - new Date(adzanTime))/60000)
+          // console.log(`${prayTime} : ${Math.round((new Date - new Date(adzanTime))/60000)}`) //dibagi 60k mili second
+        });
+
         // console.log(response.data.jadwal.data)
+
       }
     } catch (error) {
       console.log(error)
@@ -54,6 +105,7 @@ function App() {
   }
 
   useEffect(() => {
+    getRandomAyat()
     const timerId = setInterval(refreshClock, 1000);
     return function cleanup() {
       clearInterval(timerId);
@@ -69,7 +121,7 @@ function App() {
   
   
   return (
-    <Box overlow="hidden">
+    <Box overflow="hidden">
       <CardMedia
           component="img"
           sx={{ 
@@ -102,7 +154,40 @@ function App() {
               justifyContent="space-between"
               alignItems="center">
               <Grid item sx={{paddingLeft: '1vw', paddingX: '4vh'}}>
-                <img src={logoMasjid}/>
+                <Grid container spacing={3}>
+                  <Grid item>
+                    <img src={logoMasjid} />
+                  </Grid>
+                  <Grid item>
+                    <Grid sx={{
+                    fontSize: '38px',
+                    fontWeight: 'bold',
+                    color: "#FFFFFF",
+                    // fontFamily: 'Inter',
+                  }}>
+                      MASJID AL - MUHAJIRIN
+                    </Grid>
+                    <Grid sx={{
+                    fontSize: '1vw',
+                    fontWeight: 400,
+                    color: "#FFFFFF",
+                    // fontFamily: 'Inter',
+                    fontStyle: 'Regular'
+                  }}>
+                      Cluster Jasmine - Grand Depok City 
+                    </Grid>
+                    <Grid sx={{
+                    fontSize: '1vw',
+                    fontWeight: 400,
+                    color: "#FFFFFF",
+                    // fontFamily: 'Inter',
+                    fontStyle: 'Regular'
+                  }}>
+                    Kota Depok - Jawa Barat
+                    </Grid>
+                  </Grid>
+                  
+                </Grid>
               </Grid>
               <Box item sx={{
                 width: '35vw',
@@ -121,7 +206,7 @@ function App() {
                   <Grid item sx={{padding: '0.5vw', paddingX: '1vw'}}>
                     <Grid sx={{
                     fontSize: '24px',
-                    fontWeigh: 700,
+                    fontWeight: 700,
                     color: "#FFFFFF",
                     // fontFamily: 'Inter',
                     fontStyle: 'Mixed'
@@ -130,7 +215,7 @@ function App() {
                     </Grid>
                     <Grid sx={{
                     fontSize: '24px',
-                    fontWeigh: 400,
+                    fontWeight: 400,
                     color: "#FFFFFF",
                     // fontFamily: 'Inter',
                     fontStyle: 'Mixed'
@@ -144,7 +229,7 @@ function App() {
 
                     <Grid sx={{
                     fontSize: '24px',
-                    fontWeigh: 400,
+                    fontWeight: 400,
                     color: "#FFFFFF",
                     // fontFamily: 'Inter',
                     fontStyle: 'Regular'
@@ -154,12 +239,12 @@ function App() {
                   </Grid>
                   <Grid item sx={{
                     fontSize: '72px',
-                    fontWeigh: 700,
+                    fontWeight: 700,
                     color: "#FFFFFF",
                     // fontFamily: 'Inter',
                     fontStyle: 'Bold'
                   }}>
-                    {moment(date).format('hh:mm:ss')}
+                    {moment(date).format('HH:mm:ss')}
                   </Grid>
                 </Grid>
               </Box>
@@ -171,8 +256,8 @@ function App() {
           alignItems="center"
           alignSelf={"center"}>
               <Box sx={{
-                width: '50vw',
-                height: '50vh',
+                maxWidth: '50vw',
+                maxHeight: '50vh',
                 paddingX: '1vw',
                 paddingy: '1vh',
                 backgroundColor: 'RGB(30, 30, 30, 0.75)',
@@ -181,25 +266,36 @@ function App() {
                 }}>
                 <Grid sx={{
                 marginTop: '3vh',
-                fontSize: '18px',
+                fontSize: randomAyat.arab?.length > 1500 ? '0.65vw' : '0.8vw',
                 textAlign: 'center',
-                fontWeigh: 700,
+                fontWeight: 700,
                 color: "#FFB703",
                 // fontFamily: 'Inter',
                 fontStyle: 'Regular',
                 opacity:'100'
                 }}>
-                حَدَّثَنَا عَبْدُ الْمُتَعَالِ بْنُ طَالِبٍ حَدَّثَنَا ابْنُ وَهْبٍ قَالَ أَخْبَرَنِي عَمْرُو بْنُ الْحَارِثِ أَنَّ قَتَادَةَ حَدَّثَهُ أَنَّ أَنَسَ بْنَ مَالِكٍ رَضِيَ اللَّهُ عَنْهُ حَدَّثَهُعَنْ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ أَنَّهُ صَلَّى الظُّهْرَ وَالْعَصْرَ وَالْمَغْرِبَ وَالْعِشَاءَ وَرَقَدَ رَقْدَةً بِالْمُحَصَّبِ ثُمَّ رَكِبَ إِلَى الْبَيْتِ فَطَافَ بِهِ
+                {randomAyat.arab}
                 </Grid>
                 <Grid sx={{
                 marginTop: '3vh',
-                fontSize: '18px',
+                fontSize: randomAyat.id?.length > 1500 ? '0.65vw' : '0.8vw',
                 textAlign: 'center',
-                fontWeigh: 400,
+                fontWeight: 400,
                 color: "#FFB703",
                 // fontFamily: 'Inter',
                 fontStyle: 'Regular'}}>
-                “Telah menceritakan kepada kami ['Abdul Muta'al bin Tholib] telah menceritakan kepada kami [Ibnu Wahb] berkata, telah mengabarkan kepada saya ['Amru bin Al Harits] bahwa [Qatadah] menceritakan kepadanya bahwa [Anas bin Malik radliallahu 'anhu] menceritakan kepadanya bahwa Nabi shallallahu 'alaihi wasallam melaksanakan shalat Zhuhur, 'Ashar, Maghrib dan 'Isya' kemudian Beliau tidur sejenak di Al Muhashib (tempat melempar jumrah di Mina), lalu Beliau menunggang tunggangannya menuju ke Ka'bah Baitullah lalu thawaf disana”
+                {randomAyat.id}
+                </Grid>
+                <Grid sx={{
+                textAlign: 'right',
+                marginTop: '3vh',
+                marginBottom: '3vh',
+                fontSize: '1vw',
+                fontWeight: 400,
+                color: "#FFB703",
+                // fontFamily: 'Inter',
+                fontStyle: 'Regular'}}>
+                {randomAyat ? `HR. ${randomAyat.name} : ${randomAyat.number}` : ''}
                 </Grid>
               </Box>
           </Grid>
@@ -230,12 +326,30 @@ function App() {
                 </Grid>
                 <Grid item sx={{
                 fontSize: '28px',
-                fontWeigh: 700,
+                fontWeight: 700,
                 color: "#FFB703",
                 textAlign: 'center',
                 // fontFamily: 'Inter',
                 fontStyle: 'Bold'}}>
-                -- 30 Menit menjelang adzan dzuhur --
+                { listAdzan.isya < 0 && listAdzan.maghrib > 0 && listAdzan.isya > -30?
+                `-- ${listAdzan.isya} Menit menjelang Isya --`
+                  :
+                  listAdzan.maghrib < 0 && listAdzan.ashar > 0 && listAdzan.maghrib > -30?
+                  `-- ${listAdzan.maghrib} Menit menjelang Maghrib --`
+                  :
+                  listAdzan.ashar < 0 && listAdzan.dzuhur > 0 && listAdzan.ashar > -30?
+                  `-- ${listAdzan.ashar} Menit menjelang Ashar --`
+                  :
+                  listAdzan.dzuhur < 0 && listAdzan.terbit > 0 && listAdzan.dzuhur > -30?
+                  `-- ${listAdzan.dzuhur} Menit menjelang Dzuhur --`
+                  :
+                  listAdzan.terbit < 0 && listAdzan.subuh > 0 && listAdzan.terbit > -30?
+                  `-- ${listAdzan.terbit} Menit menjelang Syuruq --`
+                  :
+                  listAdzan.subuh < 0 && listAdzan.terbit < 0 && listAdzan.subuh > -30?
+                  `-- ${listAdzan.subuh} Menit menjelang Subuh --`
+                  : ``
+                }
                 </Grid>
                 <Grid item>
                   <img src={logoFPS}/>
@@ -256,7 +370,7 @@ function App() {
                   <Grid sx={{
                       textAlign: 'center',
                       fontSize: '32px',
-                      fontWeigh: 700,
+                      fontWeight: 'bold',
                       color: "#FFFFFF",
                       // fontFamily: 'Inter',
                       fontStyle: 'Bold'}}>
@@ -265,7 +379,7 @@ function App() {
                   <Grid sx={{
                       textAlign: 'center',
                       fontSize: '48px',
-                      fontWeigh: 700,
+                      fontWeight: 'bold',
                       color: "#FFFFFF",
                       // fontFamily: 'Inter',
                       fontStyle: 'Bold'}}>
@@ -282,7 +396,7 @@ function App() {
                   <Grid sx={{
                       textAlign: 'center',
                       fontSize: '32px',
-                      fontWeigh: 700,
+                      // fontWeight: 'bold',
                       color: "#FFFFFF",
                       // fontFamily: 'Inter',
                       fontStyle: 'Bold'}}>
@@ -291,7 +405,7 @@ function App() {
                   <Grid sx={{
                       textAlign: 'center',
                       fontSize: '48px',
-                      fontWeigh: 700,
+                      fontWeight: 'bold',
                       color: "#FFFFFF",
                       // fontFamily: 'Inter',
                       fontStyle: 'Bold'}}>
@@ -308,7 +422,7 @@ function App() {
                   <Grid sx={{
                       textAlign: 'center',
                       fontSize: '32px',
-                      fontWeigh: 700,
+                      // fontWeight: 'bold',
                       color: "#FFFFFF",
                       // fontFamily: 'Inter',
                       fontStyle: 'Bold'}}>
@@ -317,7 +431,7 @@ function App() {
                   <Grid sx={{
                       textAlign: 'center',
                       fontSize: '48px',
-                      fontWeigh: 700,
+                      fontWeight: 'bold',
                       color: "#FFFFFF",
                       // fontFamily: 'Inter',
                       fontStyle: 'Bold'}}>
@@ -334,7 +448,7 @@ function App() {
                   <Grid sx={{
                       textAlign: 'center',
                       fontSize: '32px',
-                      fontWeigh: 700,
+                      // fontWeight: 'bold',
                       color: "#FFFFFF",
                       // fontFamily: 'Inter',
                       fontStyle: 'Bold'}}>
@@ -343,7 +457,7 @@ function App() {
                   <Grid sx={{
                       textAlign: 'center',
                       fontSize: '48px',
-                      fontWeigh: 700,
+                      fontWeight: 'bold',
                       color: "#FFFFFF",
                       // fontFamily: 'Inter',
                       fontStyle: 'Bold'}}>
@@ -360,7 +474,7 @@ function App() {
                   <Grid sx={{
                       textAlign: 'center',
                       fontSize: '32px',
-                      fontWeigh: 700,
+                      // fontWeight: 'bold',
                       color: "#FFFFFF",
                       // fontFamily: 'Inter',
                       fontStyle: 'Bold'}}>
@@ -369,7 +483,7 @@ function App() {
                   <Grid sx={{
                       textAlign: 'center',
                       fontSize: '48px',
-                      fontWeigh: 700,
+                      fontWeight: 'bold',
                       color: "#FFFFFF",
                       // fontFamily: 'Inter',
                       fontStyle: 'Bold'}}>
@@ -386,7 +500,7 @@ function App() {
                   <Grid sx={{
                       textAlign: 'center',
                       fontSize: '32px',
-                      fontWeigh: 700,
+                      // fontWeight: 'bold',
                       color: "#FFFFFF",
                       // fontFamily: 'Inter',
                       fontStyle: 'Bold'}}>
@@ -395,7 +509,7 @@ function App() {
                   <Grid sx={{
                       textAlign: 'center',
                       fontSize: '48px',
-                      fontWeigh: 700,
+                      fontWeight: 'bold',
                       color: "#FFFFFF",
                       // fontFamily: 'Inter',
                       fontStyle: 'Bold'}}>
@@ -407,7 +521,7 @@ function App() {
                 textAlign: 'center',
                 marginTop: '1vw',
                 fontSize: '16px',
-                fontWeigh: 700,
+                // fontWeight: 700,
                 color: "#FFFFFF",
                 // fontFamily: 'Inter',
                 fontStyle: 'Bold'}}>
