@@ -4,7 +4,7 @@ import { Grid, Box, Card, CardMedia } from "@mui/material";
 import moment from 'moment';
 import './App.css';
 
-import logoMasjid from './assets/Group 11.png'
+import logoMasjid from './assets/Group.png'
 import bgMasjid from './assets/image 1.png'
 import logoFPS from './assets/Logo New FPS v1 2.png'
 
@@ -154,7 +154,41 @@ function App() {
               justifyContent="space-between"
               alignItems="center">
               <Grid item sx={{paddingLeft: '1vw', paddingX: '4vh'}}>
-                <img src={logoMasjid}/>
+                <Grid container spacing={3}>
+                  <Grid item>
+                    <img src={logoMasjid} />
+                  </Grid>
+                  <Grid item>
+                    <Grid sx={{
+                    fontSize: '2vw',
+                    fontWeigh: 700,
+                    color: "#FFFFFF",
+                    // fontFamily: 'Inter',
+                    fontStyle: 'Bold'
+                  }}>
+                      MASJID AL - MUHAJIRIN
+                    </Grid>
+                    <Grid sx={{
+                    fontSize: '1vw',
+                    fontWeigh: 400,
+                    color: "#FFFFFF",
+                    // fontFamily: 'Inter',
+                    fontStyle: 'Regular'
+                  }}>
+                      Cluster Jasmine - Grand Depok City 
+                    </Grid>
+                    <Grid sx={{
+                    fontSize: '1vw',
+                    fontWeigh: 400,
+                    color: "#FFFFFF",
+                    // fontFamily: 'Inter',
+                    fontStyle: 'Regular'
+                  }}>
+                    Kota Depok - Jawa Barat
+                    </Grid>
+                  </Grid>
+                  
+                </Grid>
               </Grid>
               <Box item sx={{
                 width: '35vw',
@@ -223,8 +257,8 @@ function App() {
           alignItems="center"
           alignSelf={"center"}>
               <Box sx={{
-                width: '50vw',
-                height: '50vh',
+                maxWidth: '50vw',
+                maxHeight: '50vh',
                 paddingX: '1vw',
                 paddingy: '1vh',
                 backgroundColor: 'RGB(30, 30, 30, 0.75)',
@@ -256,6 +290,7 @@ function App() {
                 <Grid sx={{
                 textAlign: 'right',
                 marginTop: '3vh',
+                marginBottom: '3vh',
                 fontSize: '1vw',
                 fontWeigh: 400,
                 color: "#FFB703",
