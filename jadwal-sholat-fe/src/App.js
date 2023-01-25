@@ -25,7 +25,7 @@ function App() {
   }
 
   const checkFlag = () => {
-    moment().format('h:mm:ss') == '12:00:00' ? setRefreshFlag(true) : setRefreshFlag(false)
+    moment().format('hh:mm:ss') == '00:00:00' ? setRefreshFlag(true) : setRefreshFlag(false)
   }
 
   const getListSholat = async () => {
@@ -69,11 +69,11 @@ function App() {
   
   
   return (
-    <Box>
+    <Box overlow="hidden">
       <CardMedia
           component="img"
           sx={{ 
-            maxHeight: '100vh',
+            maxHeight: '100%',
             position: "absolute",
             top: 0,
             right: 0,
@@ -87,8 +87,8 @@ function App() {
         alignItems="stre">
           <Grid item> 
             <Box  sx={{
-            width: '100vw',
-            height: '15vh',
+            width: '100%',
+            height: '17vh',
             paddingx: '1vw', 
             paddingY: '1vh',
             backgroundColor: '#1E1E1E',
@@ -101,7 +101,7 @@ function App() {
             <Grid container direction="row"
               justifyContent="space-between"
               alignItems="center">
-              <Grid item sx={{paddingLeft: '1vw', paddingX: '5vh'}}>
+              <Grid item sx={{paddingLeft: '1vw', paddingX: '4vh'}}>
                 <img src={logoMasjid}/>
               </Grid>
               <Box item sx={{
@@ -109,6 +109,7 @@ function App() {
                 height: '15vh',
                 backgroundColor: '#006783',
                 borderRadius: '12px',
+                marginRight: '4vh',
                 // '&:hover': {
                 //   backgroundColor: 'primary.main',
                 //   opacity: [0.9, 0.8, 0.7],
@@ -117,7 +118,7 @@ function App() {
                 <Grid container direction="row"
                   justifyContent="space-around"
                   alignItems="center">
-                  <Grid item sx={{padding: '1vw'}}>
+                  <Grid item sx={{padding: '0.5vw', paddingX: '1vw'}}>
                     <Grid sx={{
                     fontSize: '24px',
                     fontWeigh: 700,
@@ -158,7 +159,7 @@ function App() {
                     // fontFamily: 'Inter',
                     fontStyle: 'Bold'
                   }}>
-                    {moment(date).format('h:mm:ss')}
+                    {moment(date).format('hh:mm:ss')}
                   </Grid>
                 </Grid>
               </Box>
@@ -167,19 +168,21 @@ function App() {
           </Grid>
           <Grid item sx={{height: '54vh'}} container direction="row"
           justifyContent="center"
-          alignItems="center">
+          alignItems="center"
+          alignSelf={"center"}>
               <Box sx={{
                 width: '50vw',
                 height: '50vh',
                 paddingX: '1vw',
                 paddingy: '1vh',
-                backgroundColor: '#1E1E1E',
-                opacity: '75%',
-                borderRadius: 12,
-              }}>
+                backgroundColor: 'RGB(30, 30, 30, 0.75)',
+                backdropFilter: 'blur(3px)',
+                borderRadius: '12px'
+                }}>
                 <Grid sx={{
                 marginTop: '3vh',
-                fontSize: '24px',
+                fontSize: '18px',
+                textAlign: 'center',
                 fontWeigh: 700,
                 color: "#FFB703",
                 // fontFamily: 'Inter',
@@ -190,7 +193,8 @@ function App() {
                 </Grid>
                 <Grid sx={{
                 marginTop: '3vh',
-                fontSize: '24px',
+                fontSize: '18px',
+                textAlign: 'center',
                 fontWeigh: 400,
                 color: "#FFB703",
                 // fontFamily: 'Inter',
@@ -201,31 +205,42 @@ function App() {
           </Grid>
           <Grid item>
             <Box sx={{
-              width: '100vw',
-              height: '25vh',
+              position:'fixed',
+              left: '0',
+              bottom: '0',
+              width: '100%',
+              height: 'auto',
               // paddingx: '1vw', 
-              paddingY: '2vh',
-              backgroundColor: '#1E1E1E',
-              opacity: '80%'
+              paddingY: '0vh',
+              backgroundColor: 'RGB(30, 30, 30, 0.90)',
+              backdropFilter: 'blur(3px)',
+              opacity: '99%'
               // '&:hover': {
               //   backgroundColor: 'primary.main',
               //   opacity: [0.9, 0.8, 0.7],
               // },
-            }}>
+              }}>
               <Grid container direction="row"
-              justifyContent="space-between"
+              justifyContent="center  "
               alignItems="center">
+                <Grid container direction={"row"}
+                 justifyContent={"space-between"}>
                 <Grid item>
                   <img src={logoFPS}/>
                 </Grid>
                 <Grid item sx={{
-                fontSize: '32px',
+                fontSize: '28px',
                 fontWeigh: 700,
                 color: "#FFB703",
+                textAlign: 'center',
                 // fontFamily: 'Inter',
                 fontStyle: 'Bold'}}>
                 -- 30 Menit menjelang adzan dzuhur --
                 </Grid>
+                <Grid item>
+                  <img src={logoFPS}/>
+                </Grid>
+                </Grid>                
                 
               </Grid>
               <Grid container direction="row"
@@ -234,8 +249,8 @@ function App() {
                 <Box item sx={{
                   width: 'auto',
                   height: 'auto',
-                  paddingX: '2vw',
-                  paddingY: '2vh',
+                  paddingX: '4vw',
+                  paddingY: '0vh',
                   backgroundColor: '#006783',
                   borderRadius: '12px',}}>  
                   <Grid sx={{
@@ -260,8 +275,8 @@ function App() {
                 <Box item sx={{
                   width: 'auto',
                   height: 'auto',
-                  paddingX: '2vw',
-                  paddingY: '2vh',
+                  paddingX: '4vw',
+                  paddingY: '0vh',
                   backgroundColor: '#006783',
                   borderRadius: '12px',}}>  
                   <Grid sx={{
@@ -286,8 +301,8 @@ function App() {
                 <Box item sx={{
                   width: 'auto',
                   height: 'auto',
-                  paddingX: '2vw',
-                  paddingY: '2vh',
+                  paddingX: '4vw',
+                  paddingY: '0vh',
                   backgroundColor: '#006783',
                   borderRadius: '12px',}}>  
                   <Grid sx={{
@@ -312,8 +327,8 @@ function App() {
                 <Box item sx={{
                   width: 'auto',
                   height: 'auto',
-                  paddingX: '2vw',
-                  paddingY: '2vh',
+                  paddingX: '4vw',
+                  paddingY: '0vh',
                   backgroundColor: '#006783',
                   borderRadius: '12px',}}>  
                   <Grid sx={{
@@ -338,8 +353,8 @@ function App() {
                 <Box item sx={{
                   width: 'auto',
                   height: 'auto',
-                  paddingX: '2vw',
-                  paddingY: '2vh',
+                  paddingX: '4vw',
+                  paddingY: '0vh',
                   backgroundColor: '#006783',
                   borderRadius: '12px',}}>  
                   <Grid sx={{
@@ -364,8 +379,8 @@ function App() {
                 <Box item sx={{
                   width: 'auto',
                   height: 'auto',
-                  paddingX: '2vw',
-                  paddingY: '2vh',
+                  paddingX: '4vw',
+                  paddingY: '0vh',
                   backgroundColor: '#006783',
                   borderRadius: '12px',}}>  
                   <Grid sx={{
@@ -390,7 +405,8 @@ function App() {
               </Grid>
               <Grid sx={{
                 textAlign: 'center',
-                fontSize: '24px',
+                marginTop: '1vw',
+                fontSize: '16px',
                 fontWeigh: 700,
                 color: "#FFFFFF",
                 // fontFamily: 'Inter',
