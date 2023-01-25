@@ -32,7 +32,6 @@ function App() {
   const checkAdzan = () => {
     if(moment().format('ss') == '00'){
       getListSholat()
-      console.log(listAdzan)
     }
   }
 
@@ -234,7 +233,7 @@ function App() {
                 }}>
                 <Grid sx={{
                 marginTop: '3vh',
-                fontSize: '18px',
+                fontSize: '10px',
                 textAlign: 'center',
                 fontWeigh: 700,
                 color: "#FFB703",
@@ -246,7 +245,7 @@ function App() {
                 </Grid>
                 <Grid sx={{
                 marginTop: '3vh',
-                fontSize: '18px',
+                fontSize: '10px',
                 textAlign: 'center',
                 fontWeigh: 400,
                 color: "#FFB703",
@@ -313,7 +312,7 @@ function App() {
                   listAdzan.terbit < 0 && listAdzan.subuh > 0 && listAdzan.terbit > -30?
                   `-- ${listAdzan.terbit} Menit menjelang Syuruq --`
                   :
-                  listAdzan.subuh < 0 && listAdzan.isya > 0 && listAdzan.subuh > -30?
+                  listAdzan.subuh < 0 && listAdzan.terbit < 0 && listAdzan.subuh > -30?
                   `-- ${listAdzan.subuh} Menit menjelang Subuh --`
                   : ``
                 }
@@ -337,7 +336,7 @@ function App() {
                   <Grid sx={{
                       textAlign: 'center',
                       fontSize: '32px',
-                      fontWeigh: 700,
+                      fontWeigh: 'bold',
                       color: "#FFFFFF",
                       // fontFamily: 'Inter',
                       fontStyle: 'Bold'}}>
@@ -346,7 +345,7 @@ function App() {
                   <Grid sx={{
                       textAlign: 'center',
                       fontSize: '48px',
-                      fontWeigh: 700,
+                      fontWeigh: 'bold',
                       color: "#FFFFFF",
                       // fontFamily: 'Inter',
                       fontStyle: 'Bold'}}>
@@ -363,7 +362,7 @@ function App() {
                   <Grid sx={{
                       textAlign: 'center',
                       fontSize: '32px',
-                      fontWeigh: 700,
+                      fontWeigh: 'bold',
                       color: "#FFFFFF",
                       // fontFamily: 'Inter',
                       fontStyle: 'Bold'}}>
@@ -372,7 +371,7 @@ function App() {
                   <Grid sx={{
                       textAlign: 'center',
                       fontSize: '48px',
-                      fontWeigh: 700,
+                      fontWeigh: 'bold',
                       color: "#FFFFFF",
                       // fontFamily: 'Inter',
                       fontStyle: 'Bold'}}>
@@ -389,7 +388,7 @@ function App() {
                   <Grid sx={{
                       textAlign: 'center',
                       fontSize: '32px',
-                      fontWeigh: 700,
+                      fontWeigh: 'bold',
                       color: "#FFFFFF",
                       // fontFamily: 'Inter',
                       fontStyle: 'Bold'}}>
@@ -398,7 +397,7 @@ function App() {
                   <Grid sx={{
                       textAlign: 'center',
                       fontSize: '48px',
-                      fontWeigh: 700,
+                      fontWeigh: 'bold',
                       color: "#FFFFFF",
                       // fontFamily: 'Inter',
                       fontStyle: 'Bold'}}>
@@ -415,7 +414,7 @@ function App() {
                   <Grid sx={{
                       textAlign: 'center',
                       fontSize: '32px',
-                      fontWeigh: 700,
+                      fontWeigh: 'bold',
                       color: "#FFFFFF",
                       // fontFamily: 'Inter',
                       fontStyle: 'Bold'}}>
@@ -424,7 +423,7 @@ function App() {
                   <Grid sx={{
                       textAlign: 'center',
                       fontSize: '48px',
-                      fontWeigh: 700,
+                      fontWeigh: 'bold',
                       color: "#FFFFFF",
                       // fontFamily: 'Inter',
                       fontStyle: 'Bold'}}>
@@ -441,7 +440,7 @@ function App() {
                   <Grid sx={{
                       textAlign: 'center',
                       fontSize: '32px',
-                      fontWeigh: 700,
+                      fontWeigh: 'bold',
                       color: "#FFFFFF",
                       // fontFamily: 'Inter',
                       fontStyle: 'Bold'}}>
@@ -450,7 +449,7 @@ function App() {
                   <Grid sx={{
                       textAlign: 'center',
                       fontSize: '48px',
-                      fontWeigh: 700,
+                      fontWeigh: 'bold',
                       color: "#FFFFFF",
                       // fontFamily: 'Inter',
                       fontStyle: 'Bold'}}>
@@ -467,7 +466,7 @@ function App() {
                   <Grid sx={{
                       textAlign: 'center',
                       fontSize: '32px',
-                      fontWeigh: 700,
+                      fontWeigh: 'bold',
                       color: "#FFFFFF",
                       // fontFamily: 'Inter',
                       fontStyle: 'Bold'}}>
@@ -476,7 +475,7 @@ function App() {
                   <Grid sx={{
                       textAlign: 'center',
                       fontSize: '48px',
-                      fontWeigh: 700,
+                      fontWeigh: 'bold',
                       color: "#FFFFFF",
                       // fontFamily: 'Inter',
                       fontStyle: 'Bold'}}>
