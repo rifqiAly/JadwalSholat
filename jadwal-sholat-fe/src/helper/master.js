@@ -21,8 +21,21 @@ const ConvertTanggalHijriyah = async (currentDate) => {
   return res
 };
 
+const randomSource = async () => {
+  let url = `https://hadis-api-id.vercel.app/hadith`;
+  let res = await axios.get(url);
+  return res;
+};
+
+const randomHadits = async (slug, number) => {
+  let url = `https://hadis-api-id.vercel.app/hadith/${slug}/${number}`;
+  let res = await axios.get(url);
+  return res;
+};
 
 export default {
   ListJadwalSholat,
-  ConvertTanggalHijriyah
+  ConvertTanggalHijriyah,
+  randomSource,
+  randomHadits
 }
