@@ -233,7 +233,7 @@ function App() {
                 }}>
                 <Grid sx={{
                 marginTop: '3vh',
-                fontSize: '10px',
+                fontSize: '0.65vw',
                 textAlign: 'center',
                 fontWeigh: 700,
                 color: "#FFB703",
@@ -245,7 +245,7 @@ function App() {
                 </Grid>
                 <Grid sx={{
                 marginTop: '3vh',
-                fontSize: '10px',
+                fontSize: '0.65vw',
                 textAlign: 'center',
                 fontWeigh: 400,
                 color: "#FFB703",
