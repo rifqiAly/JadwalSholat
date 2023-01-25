@@ -16,17 +16,49 @@ import master from "./helper/master"
 function App() {
   const [listSholat,setListSholat] = useState('')
   const [tanggalHijriyah,setTanggalHijriyah] = useState('')
+  const [randomAyat,setRandomAyat] = useState('')
+
   const [date, setDate] = useState(new Date());
   const [refreshFlag, setRefreshFlag] = useState(false)
 
   const refreshClock = () => {
     setDate(new Date());
     checkFlag()
+    checkHadith()
+  }
+
+  const checkHadith = () => {
+    if(moment().format('ss') == '00'){
+      getRandomAyat()
+    }
   }
 
   const checkFlag = () => {
     moment().format('hh:mm:ss') == '00:00:00' ? setRefreshFlag(true) : setRefreshFlag(false)
   }
+
+  const getRandomAyat = async () => {
+    
+    try {
+      const response = await master.randomSource()
+      if(response.status == 200){
+        // setRandomAyat(response.data)
+        let index = Math.round(Math.random()*response.data.length)
+        
+        let slug = response.data[index].slug
+        let total = response.data[index].total
+        
+        let ranNum = Math.round(Math.random()*total)
+
+        const res = await master.randomHadits(slug,ranNum)
+        if(res.status == 200){
+          setRandomAyat(res.data)
+        }
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  } 
 
   const getListSholat = async () => {
     
@@ -54,6 +86,7 @@ function App() {
   }
 
   useEffect(() => {
+    getRandomAyat()
     const timerId = setInterval(refreshClock, 1000);
     return function cleanup() {
       clearInterval(timerId);
@@ -189,7 +222,7 @@ function App() {
                 fontStyle: 'Regular',
                 opacity:'100'
                 }}>
-                حَدَّثَنَا عَبْدُ الْمُتَعَالِ بْنُ طَالِبٍ حَدَّثَنَا ابْنُ وَهْبٍ قَالَ أَخْبَرَنِي عَمْرُو بْنُ الْحَارِثِ أَنَّ قَتَادَةَ حَدَّثَهُ أَنَّ أَنَسَ بْنَ مَالِكٍ رَضِيَ اللَّهُ عَنْهُ حَدَّثَهُعَنْ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ أَنَّهُ صَلَّى الظُّهْرَ وَالْعَصْرَ وَالْمَغْرِبَ وَالْعِشَاءَ وَرَقَدَ رَقْدَةً بِالْمُحَصَّبِ ثُمَّ رَكِبَ إِلَى الْبَيْتِ فَطَافَ بِهِ
+                {randomAyat.arab}
                 </Grid>
                 <Grid sx={{
                 marginTop: '3vh',
@@ -199,7 +232,17 @@ function App() {
                 color: "#FFB703",
                 // fontFamily: 'Inter',
                 fontStyle: 'Regular'}}>
-                “Telah menceritakan kepada kami ['Abdul Muta'al bin Tholib] telah menceritakan kepada kami [Ibnu Wahb] berkata, telah mengabarkan kepada saya ['Amru bin Al Harits] bahwa [Qatadah] menceritakan kepadanya bahwa [Anas bin Malik radliallahu 'anhu] menceritakan kepadanya bahwa Nabi shallallahu 'alaihi wasallam melaksanakan shalat Zhuhur, 'Ashar, Maghrib dan 'Isya' kemudian Beliau tidur sejenak di Al Muhashib (tempat melempar jumrah di Mina), lalu Beliau menunggang tunggangannya menuju ke Ka'bah Baitullah lalu thawaf disana”
+                {randomAyat.id}
+                </Grid>
+                <Grid sx={{
+                textAlign: 'right',
+                marginTop: '3vh',
+                fontSize: '1vw',
+                fontWeigh: 400,
+                color: "#FFB703",
+                // fontFamily: 'Inter',
+                fontStyle: 'Regular'}}>
+                {randomAyat ? `HR. ${randomAyat.name} : ${randomAyat.number}` : ''}
                 </Grid>
               </Box>
           </Grid>
