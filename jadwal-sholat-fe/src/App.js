@@ -121,7 +121,7 @@ function App() {
   
   
   return (
-    <Box overflow="hidden">
+    <Box overfvlow="hidden">
       <CardMedia
           component="img"
           sx={{ 
