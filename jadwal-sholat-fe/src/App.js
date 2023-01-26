@@ -370,7 +370,7 @@ function App() {
                   <Grid sx={{
                       textAlign: 'center',
                       fontSize: '32px',
-                      fontWeight: 'bold',
+                      // fontWeight: 'bold',
                       color: "#FFFFFF",
                       // fontFamily: 'Inter',
                       fontStyle: 'Bold'}}>
