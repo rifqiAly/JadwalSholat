@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { Grid, Box, Card, CardMedia } from "@mui/material";
+import { Grid, Box, Button, CardMedia } from "@mui/material";
 
 import moment from 'moment';
+import useSound from 'use-sound'
+
+
 import './App.css';
 
 import logoMasjid from './assets/Group.png'
 import bgMasjid from './assets/image 1.png'
 import logoFPS from './assets/Logo New FPS v1 2.png'
 
+import soundUrl from './assets/blockbuster-logo-13085.mp3'
 
 import master from "./helper/master"
 
@@ -21,17 +25,120 @@ function App() {
 
   const [date, setDate] = useState(new Date());
   const [refreshFlag, setRefreshFlag] = useState(false)
+  const [soundAdzan, setSoundAdzan] = useState(false)
+  const [soundIqomah, setSoundIqomah] = useState(false)
+  const [notifSholat, setNotifSholat] = useState(false)
+
+
+
+  const [playAdzan] = useSound(soundUrl)
+  const [playIqomah] = useSound(soundUrl)
+
+
+  const soundAdzanOn = () => {
+    setSoundAdzan(true)
+  }
+
+  const soundAdzanOff = () => {
+    setSoundAdzan(false)
+  }
+
+  const soundIqomahOn = () => {
+    setSoundIqomah(true)
+  }
+
+  const soundIqomahOff = () => {
+    setSoundIqomah(false)
+  }
+  
+  const notifSholatOn = () => {
+    setNotifSholat(true)
+  }
+
+  const notifSholatOff = () => {
+    setNotifSholat(false)
+  }
+
+  const resetAll = () => {
+    soundAdzanOff()
+    soundIqomahOff()
+    notifSholatOff()
+  }
 
   const refreshClock = () => {
     setDate(new Date());
     checkFlag()
     checkHadith()
+    refreshRemainingTime()
     checkAdzan()
+    checkIqomah()
+    checkSholat()
+    checkReset()
+    console.log(listAdzan.ashar)
+  }
+
+  const refreshRemainingTime = () => {
+    if(moment().format('ss') == '00'){
+      getListSholat()
+    }
   }
 
   const checkAdzan = () => {
-    if(moment().format('ss') == '00'){
-      getListSholat()
+    if(moment().format('ss') == '03' && 
+    (listAdzan.subuh == 0 ||
+      listAdzan.dzuhur == 0 ||
+      listAdzan.ashar == 83 ||
+      listAdzan.ashar == 87 ||
+
+      listAdzan.maghrib == 0 ||
+      listAdzan.isya == 0
+      )){
+        soundIqomahOff()
+        soundAdzanOn()
+    }    
+  }
+
+  const checkIqomah = () => {
+    if(moment().format('ss') == '03' && 
+    (listAdzan.subuh == 10 ||
+      listAdzan.dzuhur == 10 ||
+      listAdzan.ashar == 84 ||
+      listAdzan.ashar == 88 ||
+
+      listAdzan.maghrib == 10 ||
+      listAdzan.isya == 10
+      )){
+        soundAdzanOff()
+        soundIqomahOn()
+    }
+  }
+
+  const checkSholat = () => {
+    if(moment().format('ss') == '03' && 
+    (listAdzan.subuh == 11 ||
+      listAdzan.dzuhur == 11 ||
+      listAdzan.ashar == 85 ||
+      listAdzan.ashar == 89 ||
+
+      listAdzan.maghrib == 11 ||
+      listAdzan.isya == 11
+      )){
+        soundIqomahOff()
+        notifSholatOn()
+    }
+  }
+
+  const checkReset = () => {
+    if(moment().format('ss') == '03' && 
+    (listAdzan.subuh == 17 ||
+      listAdzan.dzuhur == 17 ||
+      listAdzan.ashar == 86 ||
+      listAdzan.ashar == 90 ||
+
+      listAdzan.maghrib == 17 ||
+      listAdzan.isya == 17
+      )){
+        resetAll()
     }
   }
 
@@ -80,8 +187,7 @@ function App() {
         arr.forEach(prayTime => {
           const today = moment().format('MM/DD/YYYY')
           let adzanTime = `${today} ${data[prayTime]}`
-          listAdzan[prayTime] = Math.round((new Date - new Date(adzanTime))/60000)
-          // console.log(`${prayTime} : ${Math.round((new Date - new Date(adzanTime))/60000)}`) //dibagi 60k mili second
+          listAdzan[prayTime] = Math.floor((new Date - new Date(adzanTime))/60000)
         });
 
         // console.log(response.data.jadwal.data)
@@ -111,17 +217,27 @@ function App() {
       clearInterval(timerId);
     };
   }, []);
-
+  
   useEffect(() => {
     getListSholat();
     convertCurrentDate()
   }, [refreshFlag]);
 
-  
-  
+  useEffect(() => {
+    if(soundAdzan){
+      playAdzan()
+    }
+  }, [soundAdzan]);
+
+  useEffect(() => {
+    if(soundIqomah){
+      playIqomah()
+    }
+  }, [soundIqomah]);
+
   
   return (
-    <Box overfvlow="hidden">
+    <Box overflow="hidden">
       <CardMedia
           component="img"
           sx={{ 
@@ -274,17 +390,17 @@ function App() {
                 fontStyle: 'Regular',
                 opacity:'100'
                 }}>
-                {randomAyat.arab}
+                {soundAdzan || soundIqomah || notifSholat ? '' : randomAyat.arab}
                 </Grid>
                 <Grid sx={{
                 marginTop: '3vh',
-                fontSize: randomAyat.id?.length > 1500 ? '0.65vw' : '0.8vw',
+                fontSize: randomAyat.id?.length > 1500 ? '0.65vw' : (soundAdzan || soundIqomah || notifSholat) ? '42px' : '0.8vw',
                 textAlign: 'center',
                 fontWeight: 400,
                 color: "#FFB703",
                 // fontFamily: 'Inter',
                 fontStyle: 'Regular'}}>
-                {randomAyat.id}
+                {soundAdzan || soundIqomah || notifSholat ? (soundAdzan ? '-- Adzan --' : (notifSholat ? '-- Sholat --' : '-- Iqomah --')) : randomAyat.id}
                 </Grid>
                 <Grid sx={{
                 textAlign: 'right',
@@ -295,7 +411,7 @@ function App() {
                 color: "#FFB703",
                 // fontFamily: 'Inter',
                 fontStyle: 'Regular'}}>
-                {randomAyat ? `HR. ${randomAyat.name} : ${randomAyat.number}` : ''}
+                {soundAdzan || soundIqomah || notifSholat ? '' : (randomAyat ? `HR. ${randomAyat.name} : ${randomAyat.number}` : '')}
                 </Grid>
               </Box>
           </Grid>
@@ -332,22 +448,22 @@ function App() {
                 // fontFamily: 'Inter',
                 fontStyle: 'Bold'}}>
                 { listAdzan.isya < 0 && listAdzan.maghrib > 0 && listAdzan.isya > -30?
-                `-- ${listAdzan.isya} Menit menjelang Isya --`
+                  `-- ${listAdzan.isya * -1} Menit menjelang Isya --`
                   :
                   listAdzan.maghrib < 0 && listAdzan.ashar > 0 && listAdzan.maghrib > -30?
-                  `-- ${listAdzan.maghrib} Menit menjelang Maghrib --`
+                  `-- ${listAdzan.maghrib * -1} Menit menjelang Maghrib --`
                   :
                   listAdzan.ashar < 0 && listAdzan.dzuhur > 0 && listAdzan.ashar > -30?
-                  `-- ${listAdzan.ashar} Menit menjelang Ashar --`
+                  `-- ${listAdzan.ashar * -1}  Menit menjelang Ashar --`
                   :
                   listAdzan.dzuhur < 0 && listAdzan.terbit > 0 && listAdzan.dzuhur > -30?
-                  `-- ${listAdzan.dzuhur} Menit menjelang Dzuhur --`
+                  `-- ${listAdzan.dzuhur * -1} Menit menjelang Dzuhur --`
                   :
                   listAdzan.terbit < 0 && listAdzan.subuh > 0 && listAdzan.terbit > -30?
-                  `-- ${listAdzan.terbit} Menit menjelang Syuruq --`
+                  `-- ${listAdzan.terbit * -1} Menit menjelang Syuruq --`
                   :
                   listAdzan.subuh < 0 && listAdzan.terbit < 0 && listAdzan.subuh > -30?
-                  `-- ${listAdzan.subuh} Menit menjelang Subuh --`
+                  `-- ${listAdzan.subuh * -1} Menit menjelang Subuh --`
                   : ``
                 }
                 </Grid>
@@ -370,7 +486,7 @@ function App() {
                   <Grid sx={{
                       textAlign: 'center',
                       fontSize: '32px',
-                      fontWeight: 'bold',
+                      // fontWeight: 'bold',
                       color: "#FFFFFF",
                       // fontFamily: 'Inter',
                       fontStyle: 'Bold'}}>
@@ -530,7 +646,6 @@ function App() {
             </Box>
           </Grid>
         </Grid>
-      
     </Box>
   );
 }
