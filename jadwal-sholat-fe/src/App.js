@@ -87,9 +87,7 @@ function App() {
     if(moment().format('ss') == '03' && 
     (listAdzan.subuh == 0 ||
       listAdzan.dzuhur == 0 ||
-      listAdzan.ashar == 83 ||
-      listAdzan.ashar == 87 ||
-
+      listAdzan.ashar == 0 ||
       listAdzan.maghrib == 0 ||
       listAdzan.isya == 0
       )){
@@ -102,9 +100,7 @@ function App() {
     if(moment().format('ss') == '03' && 
     (listAdzan.subuh == 10 ||
       listAdzan.dzuhur == 10 ||
-      listAdzan.ashar == 84 ||
-      listAdzan.ashar == 88 ||
-
+      listAdzan.ashar == 10 ||
       listAdzan.maghrib == 10 ||
       listAdzan.isya == 10
       )){
@@ -117,9 +113,7 @@ function App() {
     if(moment().format('ss') == '03' && 
     (listAdzan.subuh == 11 ||
       listAdzan.dzuhur == 11 ||
-      listAdzan.ashar == 85 ||
-      listAdzan.ashar == 89 ||
-
+      listAdzan.ashar == 11 ||
       listAdzan.maghrib == 11 ||
       listAdzan.isya == 11
       )){
@@ -130,13 +124,11 @@ function App() {
 
   const checkReset = () => {
     if(moment().format('ss') == '03' && 
-    (listAdzan.subuh == 17 ||
-      listAdzan.dzuhur == 17 ||
-      listAdzan.ashar == 86 ||
-      listAdzan.ashar == 90 ||
-
-      listAdzan.maghrib == 17 ||
-      listAdzan.isya == 17
+    (listAdzan.subuh == 18 ||
+      listAdzan.dzuhur == 18 ||
+      listAdzan.ashar == 18 ||
+      listAdzan.maghrib == 18 ||
+      listAdzan.isya == 18
       )){
         resetAll()
     }
