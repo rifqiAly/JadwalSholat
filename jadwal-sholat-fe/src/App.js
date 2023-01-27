@@ -143,8 +143,8 @@ function App() {
             height: '17vh',
             paddingx: '1vw', 
             paddingY: '1vh',
-            backgroundColor: '#1E1E1E',
-            opacity: '80%'
+            backgroundColor: 'RGB(30, 30, 30, 0.75)',
+            backdropFilter: 'blur(3px)',
             // '&:hover': {
             //   backgroundColor: 'primary.main',
             //   opacity: [0.9, 0.8, 0.7],
@@ -156,11 +156,11 @@ function App() {
               <Grid item sx={{paddingLeft: '1vw', paddingX: '4vh'}}>
                 <Grid container spacing={3}>
                   <Grid item>
-                    <img src={logoMasjid} />
+                    <img src={logoMasjid} width="100vw"/>
                   </Grid>
                   <Grid item>
                     <Grid sx={{
-                    fontSize: '38px',
+                    fontSize: '2vw',
                     fontWeight: 'bold',
                     color: "#FFFFFF",
                     // fontFamily: 'Inter',
@@ -193,7 +193,7 @@ function App() {
                 width: '35vw',
                 height: '15vh',
                 backgroundColor: '#006783',
-                borderRadius: '12px',
+                borderRadius: '1vw',
                 marginRight: '4vh',
                 // '&:hover': {
                 //   backgroundColor: 'primary.main',
@@ -202,10 +202,11 @@ function App() {
               }}>
                 <Grid container direction="row"
                   justifyContent="space-around"
-                  alignItems="center">
+                  alignItems="center"
+                  alignSelf="center">
                   <Grid item sx={{padding: '0.5vw', paddingX: '1vw'}}>
                     <Grid sx={{
-                    fontSize: '24px',
+                    fontSize: '1.5vw',
                     fontWeight: 700,
                     color: "#FFFFFF",
                     // fontFamily: 'Inter',
@@ -214,7 +215,7 @@ function App() {
                       {tanggalHijriyah.hari}
                     </Grid>
                     <Grid sx={{
-                    fontSize: '24px',
+                    fontSize: '1.5vw',
                     fontWeight: 400,
                     color: "#FFFFFF",
                     // fontFamily: 'Inter',
@@ -224,11 +225,11 @@ function App() {
                     </Grid>
                     <Box sx={{
                       backgroundColor:'#FFFFFF',
-                      height: '2px'
+                      height: '0.01vw'
                     }}/>
 
                     <Grid sx={{
-                    fontSize: '24px',
+                    fontSize: '1.5vw',
                     fontWeight: 400,
                     color: "#FFFFFF",
                     // fontFamily: 'Inter',
@@ -238,7 +239,7 @@ function App() {
                     </Grid>
                   </Grid>
                   <Grid item sx={{
-                    fontSize: '72px',
+                    fontSize: '4vw',
                     fontWeight: 700,
                     color: "#FFFFFF",
                     // fontFamily: 'Inter',
@@ -317,45 +318,45 @@ function App() {
               // },
               }}>
               <Grid container direction="row"
-              justifyContent="center  "
-              alignItems="center">
+                    justifyContent="center"
+                    alignItems="center"
+                    marginBottom="1vw">
                 <Grid container direction={"row"}
                  justifyContent={"space-between"}>
                 <Grid item>
-                  <img src={logoFPS}/>
+                  <img src={logoFPS} width="50vw"/>
                 </Grid>
                 <Grid item sx={{
-                fontSize: '28px',
+                fontSize: '1.5vw',
                 fontWeight: 700,
                 color: "#FFB703",
                 textAlign: 'center',
                 // fontFamily: 'Inter',
                 fontStyle: 'Bold'}}>
                 { listAdzan.isya < 0 && listAdzan.maghrib > 0 && listAdzan.isya > -30?
-                `-- ${listAdzan.isya} Menit menjelang Isya --`
+                `${listAdzan.isya} Menit menjelang Isya `
                   :
                   listAdzan.maghrib < 0 && listAdzan.ashar > 0 && listAdzan.maghrib > -30?
-                  `-- ${listAdzan.maghrib} Menit menjelang Maghrib --`
+                  `${listAdzan.maghrib} Menit menjelang Maghrib `
                   :
                   listAdzan.ashar < 0 && listAdzan.dzuhur > 0 && listAdzan.ashar > -30?
-                  `-- ${listAdzan.ashar} Menit menjelang Ashar --`
+                  `${listAdzan.ashar} Menit menjelang Ashar `
                   :
                   listAdzan.dzuhur < 0 && listAdzan.terbit > 0 && listAdzan.dzuhur > -30?
-                  `-- ${listAdzan.dzuhur} Menit menjelang Dzuhur --`
+                  `${listAdzan.dzuhur} Menit menjelang Dzuhur `
                   :
                   listAdzan.terbit < 0 && listAdzan.subuh > 0 && listAdzan.terbit > -30?
-                  `-- ${listAdzan.terbit} Menit menjelang Syuruq --`
+                  `${listAdzan.terbit} Menit menjelang Syuruq `
                   :
                   listAdzan.subuh < 0 && listAdzan.terbit < 0 && listAdzan.subuh > -30?
-                  `-- ${listAdzan.subuh} Menit menjelang Subuh --`
+                  `${listAdzan.subuh} Menit menjelang Subuh `
                   : ``
                 }
                 </Grid>
                 <Grid item>
-                  <img src={logoFPS}/>
+                  <img src={logoFPS} width="50vw"/>
                 </Grid>
                 </Grid>                
-                
               </Grid>
               <Grid container direction="row"
                   justifyContent="space-evenly"
@@ -369,7 +370,7 @@ function App() {
                   borderRadius: '12px',}}>  
                   <Grid sx={{
                       textAlign: 'center',
-                      fontSize: '32px',
+                      fontSize: '1.5vw',
                       // fontWeight: 'bold',
                       color: "#FFFFFF",
                       // fontFamily: 'Inter',
@@ -378,7 +379,7 @@ function App() {
                   </Grid>
                   <Grid sx={{
                       textAlign: 'center',
-                      fontSize: '48px',
+                      fontSize: '2.5vw',
                       fontWeight: 'bold',
                       color: "#FFFFFF",
                       // fontFamily: 'Inter',
@@ -395,7 +396,7 @@ function App() {
                   borderRadius: '12px',}}>  
                   <Grid sx={{
                       textAlign: 'center',
-                      fontSize: '32px',
+                      fontSize: '1.5vw',
                       // fontWeight: 'bold',
                       color: "#FFFFFF",
                       // fontFamily: 'Inter',
@@ -404,7 +405,7 @@ function App() {
                   </Grid>
                   <Grid sx={{
                       textAlign: 'center',
-                      fontSize: '48px',
+                      fontSize: '2.5vw',
                       fontWeight: 'bold',
                       color: "#FFFFFF",
                       // fontFamily: 'Inter',
@@ -421,7 +422,7 @@ function App() {
                   borderRadius: '12px',}}>  
                   <Grid sx={{
                       textAlign: 'center',
-                      fontSize: '32px',
+                      fontSize: '1.5vw',
                       // fontWeight: 'bold',
                       color: "#FFFFFF",
                       // fontFamily: 'Inter',
@@ -430,7 +431,7 @@ function App() {
                   </Grid>
                   <Grid sx={{
                       textAlign: 'center',
-                      fontSize: '48px',
+                      fontSize: '2.5vw',
                       fontWeight: 'bold',
                       color: "#FFFFFF",
                       // fontFamily: 'Inter',
@@ -447,7 +448,7 @@ function App() {
                   borderRadius: '12px',}}>  
                   <Grid sx={{
                       textAlign: 'center',
-                      fontSize: '32px',
+                      fontSize: '1.5vw',
                       // fontWeight: 'bold',
                       color: "#FFFFFF",
                       // fontFamily: 'Inter',
@@ -456,7 +457,7 @@ function App() {
                   </Grid>
                   <Grid sx={{
                       textAlign: 'center',
-                      fontSize: '48px',
+                      fontSize: '2.5vw',
                       fontWeight: 'bold',
                       color: "#FFFFFF",
                       // fontFamily: 'Inter',
@@ -473,7 +474,7 @@ function App() {
                   borderRadius: '12px',}}>  
                   <Grid sx={{
                       textAlign: 'center',
-                      fontSize: '32px',
+                      fontSize: '1.5vw',
                       // fontWeight: 'bold',
                       color: "#FFFFFF",
                       // fontFamily: 'Inter',
@@ -482,7 +483,7 @@ function App() {
                   </Grid>
                   <Grid sx={{
                       textAlign: 'center',
-                      fontSize: '48px',
+                      fontSize: '2.5vw',
                       fontWeight: 'bold',
                       color: "#FFFFFF",
                       // fontFamily: 'Inter',
@@ -499,7 +500,7 @@ function App() {
                   borderRadius: '12px',}}>  
                   <Grid sx={{
                       textAlign: 'center',
-                      fontSize: '32px',
+                      fontSize: '1.5vw',
                       // fontWeight: 'bold',
                       color: "#FFFFFF",
                       // fontFamily: 'Inter',
@@ -508,7 +509,7 @@ function App() {
                   </Grid>
                   <Grid sx={{
                       textAlign: 'center',
-                      fontSize: '48px',
+                      fontSize: '2.5vw',
                       fontWeight: 'bold',
                       color: "#FFFFFF",
                       // fontFamily: 'Inter',
@@ -520,7 +521,7 @@ function App() {
               <Grid sx={{
                 textAlign: 'center',
                 marginTop: '1vw',
-                fontSize: '16px',
+                fontSize: '0.8vw',
                 // fontWeight: 700,
                 color: "#FFFFFF",
                 // fontFamily: 'Inter',
