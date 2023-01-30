@@ -15,7 +15,7 @@ import soundUrl from './assets/call-to-attention-123107.mp3'
 
 import master from "./helper/master"
 
-let listAdzan = {iqomah : 6}
+let listAdzan = {iqomah : 7}
 
 function App() {
   const [listSholat,setListSholat] = useState('')
@@ -36,7 +36,7 @@ function App() {
   }
 
   const resetCD = () => {
-    listAdzan.iqomah = 6
+    listAdzan.iqomah = 7
   }
 
   const [playAdzan] = useSound(soundUrl)
