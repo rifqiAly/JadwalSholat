@@ -15,7 +15,7 @@ import soundUrl from './assets/call-to-attention-123107.mp3'
 
 import master from "./helper/master"
 
-let listAdzan = {}
+let listAdzan = {iqomah : 6}
 
 function App() {
   const [listSholat,setListSholat] = useState('')
@@ -36,7 +36,7 @@ function App() {
   }
 
   const resetCD = () => {
-    listAdzan.iqomah = 7
+    listAdzan.iqomah = 6
   }
 
   const [playAdzan] = useSound(soundUrl)
@@ -92,7 +92,7 @@ function App() {
     checkCountdownIqomah()
     checkSholat()
     checkReset()
-    // console.log(listAdzan.dzuhur)
+    // console.log(listAdzan)
   }
 
 
@@ -112,28 +112,28 @@ function App() {
       )){
         soundIqomahOff()
         soundAdzanOn()
-    }    
-  }
-
-  const checkCountdownIqomah = () => {
-    if(moment().format('ss') == '03' && 
-    (listAdzan.subuh == 3 ||
-      listAdzan.dzuhur == 3 ||
-      listAdzan.ashar == 3 ||
-      listAdzan.maghrib == 3 ||
-      listAdzan.isya == 3
-      )){
-        soundAdzanOff()
-        countDownIqomahOn()
-        resetCD()
+      }    
+    }
+    
+    const checkCountdownIqomah = () => {
+      if(moment().format('ss') == '03' && 
+      (listAdzan.subuh == 3 ||
+        listAdzan.dzuhur == 3 ||
+        listAdzan.ashar == 3 ||
+        listAdzan.maghrib == 3 ||
+        listAdzan.isya == 3
+        )){
+          resetCD()
+          soundAdzanOff()
+          countDownIqomahOn()
     }
 
     if(moment().format('ss') == '03' && 
-    (listAdzan.subuh == 3 ||
-      listAdzan.dzuhur > 2 &&  listAdzan.dzuhur < 10||
-      listAdzan.ashar == 3 ||
-      listAdzan.maghrib == 3 ||
-      listAdzan.isya == 3
+    (listAdzan.subuh > 2 &&  listAdzan.subuh < 10 ||
+      listAdzan.dzuhur > 2 &&  listAdzan.dzuhur < 10 ||
+      listAdzan.ashar > 2 &&  listAdzan.ashar < 10 ||
+      listAdzan.maghrib > 2 &&  listAdzan.maghrib < 10 ||
+      listAdzan.isya > 2 &&  listAdzan.isya < 10
       )){
         if(listAdzan.iqomah != 0 ){
           reduceCDIqomah()
