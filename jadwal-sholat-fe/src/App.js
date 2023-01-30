@@ -74,7 +74,7 @@ function App() {
     checkIqomah()
     checkSholat()
     checkReset()
-    console.log(listAdzan.ashar)
+    // console.log(listAdzan.dzuhur)
   }
 
   const refreshRemainingTime = () => {
