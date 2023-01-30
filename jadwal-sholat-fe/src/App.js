@@ -11,7 +11,7 @@ import logoMasjid from './assets/Group.png'
 import bgMasjid from './assets/image 1.png'
 import logoFPS from './assets/Logo New FPS v1 2.png'
 
-import soundUrl from './assets/blockbuster-logo-13085.mp3'
+import soundUrl from './assets/call-to-attention-123107.mp3'
 
 import master from "./helper/master"
 
@@ -28,8 +28,16 @@ function App() {
   const [soundAdzan, setSoundAdzan] = useState(false)
   const [soundIqomah, setSoundIqomah] = useState(false)
   const [notifSholat, setNotifSholat] = useState(false)
+  const [countDownIqomah, setCountDownIqomah] = useState(false)
 
 
+  const reduceCDIqomah = () => {
+    listAdzan.iqomah = (listAdzan.iqomah - 1)
+  }
+
+  const resetCD = () => {
+    listAdzan.iqomah = 7
+  }
 
   const [playAdzan] = useSound(soundUrl)
   const [playIqomah] = useSound(soundUrl)
@@ -59,10 +67,19 @@ function App() {
     setNotifSholat(false)
   }
 
+  const countDownIqomahOn = () => {
+    setCountDownIqomah(true)
+  }
+
+  const countDownIqomahOff = () => {
+    setCountDownIqomah(false)
+  }
+
   const resetAll = () => {
     soundAdzanOff()
     soundIqomahOff()
     notifSholatOff()
+    countDownIqomahOff()
   }
 
   const refreshClock = () => {
@@ -72,10 +89,12 @@ function App() {
     refreshRemainingTime()
     checkAdzan()
     checkIqomah()
+    checkCountdownIqomah()
     checkSholat()
     checkReset()
-    console.log(listAdzan.ashar)
+    // console.log(listAdzan.dzuhur)
   }
+
 
   const refreshRemainingTime = () => {
     if(moment().format('ss') == '00'){
@@ -96,6 +115,34 @@ function App() {
     }    
   }
 
+  const checkCountdownIqomah = () => {
+    if(moment().format('ss') == '03' && 
+    (listAdzan.subuh == 3 ||
+      listAdzan.dzuhur == 3 ||
+      listAdzan.ashar == 3 ||
+      listAdzan.maghrib == 3 ||
+      listAdzan.isya == 3
+      )){
+        soundAdzanOff()
+        countDownIqomahOn()
+        resetCD()
+    }
+
+    if(moment().format('ss') == '03' && 
+    (listAdzan.subuh == 3 ||
+      listAdzan.dzuhur > 2 &&  listAdzan.dzuhur < 10||
+      listAdzan.ashar == 3 ||
+      listAdzan.maghrib == 3 ||
+      listAdzan.isya == 3
+      )){
+        if(listAdzan.iqomah != 0 ){
+          reduceCDIqomah()
+        }else{
+          resetCD()
+        }
+      }
+  }
+
   const checkIqomah = () => {
     if(moment().format('ss') == '03' && 
     (listAdzan.subuh == 10 ||
@@ -104,7 +151,7 @@ function App() {
       listAdzan.maghrib == 10 ||
       listAdzan.isya == 10
       )){
-        soundAdzanOff()
+        countDownIqomahOff()
         soundIqomahOn()
     }
   }
@@ -383,17 +430,17 @@ function App() {
                 fontStyle: 'Regular',
                 opacity:'100'
                 }}>
-                {soundAdzan || soundIqomah || notifSholat ? '' : randomAyat.arab}
+                {soundAdzan || soundIqomah || notifSholat || countDownIqomah ? '' : randomAyat.arab}
                 </Grid>
                 <Grid sx={{
                 marginTop: '3vh',
-                fontSize: randomAyat.id?.length > 1500 ? '0.65vw' : (soundAdzan || soundIqomah || notifSholat) ? '42px' : '0.8vw',
+                fontSize: randomAyat.id?.length > 1500 ? '0.65vw' : (soundAdzan || soundIqomah || notifSholat || countDownIqomah) ? '42px' : '0.8vw',
                 textAlign: 'center',
                 fontWeight: 400,
                 color: "#FFB703",
                 // fontFamily: 'Inter',
                 fontStyle: 'Regular'}}>
-                {soundAdzan || soundIqomah || notifSholat ? (soundAdzan ? '-- Adzan --' : (notifSholat ? '-- Sholat --' : '-- Iqomah --')) : randomAyat.id}
+                {soundAdzan || soundIqomah || notifSholat || countDownIqomah ? (soundAdzan ? '-- Adzan --' : (notifSholat ? '-- Sholat --' : (countDownIqomah ? `-- ${listAdzan.iqomah} Menit menuju Iqomah --` : '-- Iqomah --'))) : randomAyat.id}
                 </Grid>
                 <Grid sx={{
                 textAlign: 'right',
@@ -404,7 +451,7 @@ function App() {
                 color: "#FFB703",
                 // fontFamily: 'Inter',
                 fontStyle: 'Regular'}}>
-                {soundAdzan || soundIqomah || notifSholat ? '' : (randomAyat ? `HR. ${randomAyat.name} : ${randomAyat.number}` : '')}
+                {soundAdzan || soundIqomah || notifSholat || countDownIqomah ? '' : (randomAyat ? `HR. ${randomAyat.name} : ${randomAyat.number}` : '')}
                 </Grid>
               </Box>
           </Grid>
