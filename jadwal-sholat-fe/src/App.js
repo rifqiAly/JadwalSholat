@@ -440,7 +440,7 @@ function App() {
                 color: "#FFB703",
                 // fontFamily: 'Inter',
                 fontStyle: 'Regular'}}>
-                {soundAdzan || soundIqomah || notifSholat || countDownIqomah ? (soundAdzan ? '-- Adzan --' : (notifSholat ? '-- Sholat --' : (countDownIqomah ? `-- ${listAdzan.iqomah} Menit menuju Iqomah --` : '-- Iqomah --'))) : randomAyat.id}
+                {soundAdzan || soundIqomah || notifSholat || countDownIqomah ? (soundAdzan ? '-- Adzan --' : (notifSholat ? '-- Sholat --' : (countDownIqomah ? `-- ${listAdzan.iqomah} : ${ 60 - moment().format('ss') + 3 >= 60 ?  3 - moment().format('ss') : 60 - moment().format('ss') + 3 }  menuju Iqomah --` : '-- Iqomah --'))) : randomAyat.id}
                 </Grid>
                 <Grid sx={{
                 textAlign: 'right',
