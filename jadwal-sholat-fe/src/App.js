@@ -7,7 +7,7 @@ import useSound from 'use-sound'
 
 import './App.css';
 
-import logoMasjid from './assets/Group.png'
+import logoMasjid from './assets/logo-almuhajirin.png'
 import bgMasjid from './assets/image 1.png'
 import logoFPS from './assets/Logo New FPS v1 2.png'
 
