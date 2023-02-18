@@ -241,8 +241,17 @@ function App() {
     try {
       const response = await master.ConvertTanggalHijriyah(moment().format('DD-MM-YYYY'))
       if(response.status == 200){
-        setTanggalHijriyah(response.data[0])
-        // console.log(response.data[0])
+        let hijri = response.data.data.hijri
+        let masehi = response.data.data.gregorian
+        setTanggalHijriyah({
+          hari: masehi.weekday.en,
+          tanggal_masehi: masehi.day,
+          bulan_masehi: masehi.month.en,
+          tahun_masehi: masehi.year,
+          tanggal_hijriyah: hijri.day,
+          bulan_hijriyah: hijri.month.en,
+          tahun_hijriyah: hijri.year,
+        })
       }
     } catch (error) {
       console.log(error)

@@ -9,12 +9,7 @@ const ListJadwalSholat = async (currentDate) => {
 const ConvertTanggalHijriyah = async (currentDate) => {
   const options = {
     method: 'GET',
-    url: 'https://masehi-ke-hijriyah.p.rapidapi.com/',
-    params: {tanggal: `${currentDate}`},
-    headers: {
-      'X-RapidAPI-Key': '293a1d9141mshb9de18ba68db94cp1b21fajsnc40fc37db137',
-      'X-RapidAPI-Host': 'masehi-ke-hijriyah.p.rapidapi.com'
-    }
+    url: `http://api.aladhan.com/v1/gToH/${currentDate}`,
   };
   
   let res = await axios.request(options)
